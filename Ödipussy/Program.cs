@@ -16,28 +16,45 @@ namespace Ödipussy
                 Regex = "$x$%7=0 and not ($x$=21)",
                 SubstituionWord = "Ödipussy"
             };
-            WordSubstitutionRule newRule = new WordSubstitutionRule
+            NumberSubstitutionRule newRule = new NumberSubstitutionRule
             {
                 Regex = "$x$%3=0",
-                SubstituionWord = "3 HAHAHA"
+                SubstitutionNumber = 8
+            };
+            NumberSubstitutionRule newRule2 = new NumberSubstitutionRule
+            {
+                Regex = "$x$=8",
+                SubstitutionNumber = 13
+            };
+            NumberSubstitutionRule newRule3 = new NumberSubstitutionRule
+            {
+                Regex = "$x$%4=0",
+                SubstitutionNumber = 12
             };
 
             rules.Add(ödipussy);
+            rules.Add(newRule3);
+            rules.Add(newRule2);
             rules.Add(newRule);
 
-            for(int i = 1; i < 22; i++)
+            for (int i = 1; i < 22; i++)
             {
                 DataPair output = new DataPair
                 {
                     Data = i.ToString(),
-                    Type = typeof(int)
+                    Type = typeof(double)
                 };
-                foreach(var rule in rules)
+                foreach (var rule in rules)
                 {
-                    output = rule.ApplyRule(output, out string log);
-                    Console.WriteLine(log);
+                    output = rule.ApplyRule(output);
                 }
-                Console.WriteLine(i+": "+output.Data);
+                if (output.IsTransformed)
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine(output.TransformationLog);
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                Console.WriteLine(i + " => " + output.Data);
             }
         }
     }

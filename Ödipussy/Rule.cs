@@ -7,6 +7,14 @@ using System.Threading.Tasks;
 
 namespace Ödipussy
 {
+    public static class Utilities
+    {
+        public static bool IsNumericType(this Type t)
+        {
+            return typeof(int) == t
+            || typeof(double) == t;
+        }
+    }
     public class RuleHelper
     {
         public static bool IsValid(string regex, double number)
@@ -31,7 +39,6 @@ namespace Ödipussy
             table.Rows.Add(r);
             bool result = (Boolean)r[0];
             return result;
-
         }
     }
 
@@ -39,45 +46,66 @@ namespace Ödipussy
     {
         public string Data { get; set; }
         public Type Type { get; set; }
+        public string TransformationLog { get; set; }
+        public bool IsTransformed { get; set; }
         public override string ToString()
         {
-            return $"{Data} ({Type})";
+            return Data;
+            //return $"{Data} ({Type})";
         }
     }
 
     public interface IRule
     {
         string Regex { get; set; }
-        DataPair ApplyRule(DataPair input, out string log);
+        DataPair ApplyRule(DataPair input);
     }
 
     public class WordSubstitutionRule : IRule
     {
         public string SubstituionWord { get; set; }
         public string Regex { get; set; }
-        public DataPair ApplyRule(DataPair input, out string log)
+        public DataPair ApplyRule(DataPair input)
         {
-            if (input.Type == typeof(int))
+            if (input.Type.IsNumericType())
             {
-                if (RuleHelper.IsValid(Regex, Convert.ToInt32(input.Data)))
+                if (RuleHelper.IsValid(Regex, Convert.ToDouble(input.Data)))
                 {
-                    var output = new DataPair { Data = SubstituionWord, Type = typeof(string) };
-                    log = "WordSubstitutionRule regex matched: " + Regex + "\nTransforming " + input.ToString() + " to " + output.ToString();
+                    var output = new DataPair
+                    {
+                        Data = SubstituionWord,
+                        Type = typeof(string),
+                        IsTransformed = true,
+                        TransformationLog = $"{input.TransformationLog}Wordsub (matched { Regex }). {input.Data} => {SubstituionWord}\n"
+                    };
                     return output;
                 }
             }
-            log = "";
             return input;
         }
     }
 
     public class NumberSubstitutionRule : IRule
     {
-        public string Regex { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-
-        public DataPair ApplyRule(DataPair input, out string log)
+        public double SubstitutionNumber { get; set; }
+        public string Regex { get; set; }
+        public DataPair ApplyRule(DataPair input)
         {
-            throw new NotImplementedException();
+            if (input.Type.IsNumericType())
+            {
+                if (RuleHelper.IsValid(Regex, Convert.ToDouble(input.Data)))
+                {
+                    var output = new DataPair
+                    {
+                        Data = SubstitutionNumber.ToString(),
+                        Type = typeof(double),
+                        IsTransformed = true,
+                        TransformationLog = $"{input.TransformationLog}Numbersub (matched { Regex }). {input.Data} => { SubstitutionNumber.ToString()}\n"
+                    };
+                    return output;
+                }
+            }
+            return input;
         }
     }
 }
