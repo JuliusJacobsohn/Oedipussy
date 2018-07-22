@@ -14,14 +14,60 @@ namespace Ödipussy
             return typeof(int) == t
             || typeof(double) == t;
         }
+
+        public static int GetClosingBracket(string expression, int startingBracketIndex)
+        {
+            int bracketCounter = 0;
+            for (int i = startingBracketIndex; i < expression.Length; i++)
+            {
+                if (expression.ElementAt(i) == '(')
+                {
+                    bracketCounter++;
+                }
+                if (expression.ElementAt(i) == ')')
+                {
+                    bracketCounter--;
+                }
+                if (bracketCounter == 0)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
     }
     public class RuleHelper
     {
+        public const string FUNCTION_CONTAINS = "contains";
         public static bool IsValid(string regex, double number)
         {
-            return EvaluateBoolean(regex.Replace("$x$", number.ToString()));
+            return EvaluateBoolean(EvaluateExpression(regex.Replace("$x", number.ToString())));
         }
-        public static double Evaluate(string expression)
+
+        public static string EvaluateExpression(string expression)
+        {
+            if (expression.Contains(FUNCTION_CONTAINS))
+            {
+                int startingBracketIndex = expression.IndexOf(FUNCTION_CONTAINS) + FUNCTION_CONTAINS.Length;
+                int closingBracketIndex = Utilities.GetClosingBracket(expression, startingBracketIndex);
+                string argumentFunction = expression.Substring(startingBracketIndex + 1, closingBracketIndex - (startingBracketIndex + 1));
+                int commaIndex = argumentFunction.IndexOf(',') + startingBracketIndex + 1;
+                string firstArgument = expression.Substring(startingBracketIndex + 1, commaIndex - (startingBracketIndex + 1));
+                string secondArgument = expression.Substring(commaIndex + 1, closingBracketIndex - (commaIndex + 1));
+                if (firstArgument.Contains(secondArgument))
+                {
+                    expression = expression.Replace($"{FUNCTION_CONTAINS}({firstArgument},{secondArgument})", "true");
+                }
+                else
+                {
+                    expression = expression.Replace($"{FUNCTION_CONTAINS}({firstArgument},{secondArgument})", "false");
+                }
+            }
+
+            return expression;
+        }
+
+        public static double EvaluateDouble(string expression)
         {
             DataTable table = new DataTable();
             table.Columns.Add("expression", typeof(string), expression);

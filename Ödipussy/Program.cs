@@ -13,27 +13,21 @@ namespace Ödipussy
             List<IRule> rules = new List<IRule>();
             WordSubstitutionRule ödipussy = new WordSubstitutionRule
             {
-                Regex = "$x$%7=0 and not ($x$=21)",
+                Regex = "$x%7=0 and not ($x=21)",
                 SubstituionWord = "Ödipussy"
-            };
-            NumberSubstitutionRule newRule = new NumberSubstitutionRule
-            {
-                Regex = "$x$%3=0",
-                SubstitutionNumber = 8
             };
             NumberSubstitutionRule newRule2 = new NumberSubstitutionRule
             {
-                Regex = "$x$=8",
-                SubstitutionNumber = 13
+                Regex = "$x%4=0",
+                SubstitutionNumber = 2.5
             };
-            NumberSubstitutionRule newRule3 = new NumberSubstitutionRule
+            NumberSubstitutionRule newRule = new NumberSubstitutionRule
             {
-                Regex = "$x$%4=0",
-                SubstitutionNumber = 12
+                Regex = "contains($x,Ödipussy) ",
+                SubstitutionNumber = 8
             };
 
             rules.Add(ödipussy);
-            rules.Add(newRule3);
             rules.Add(newRule2);
             rules.Add(newRule);
 
