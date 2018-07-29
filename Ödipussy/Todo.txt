@@ -1,0 +1,9 @@
+﻿Regeln:
+	NumberSwitchRule (zB. 5 und 15 vertauschen)
+	GameRules:
+		Spielränder vergrößern/verkleinern
+
+Trigger:
+
+Funktionen:
+	Round
