@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27703.2035
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ödipussy", "Ödipussy\Ödipussy.csproj", "{EC201A8B-5AE2-4919-98DD-F7D9379F6BBF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ÖdipussyWeb", "ÖdipussyWeb\ÖdipussyWeb.csproj", "{FE5EC450-7F96-4C9C-B9B3-0005B9394154}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{EC201A8B-5AE2-4919-98DD-F7D9379F6BBF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EC201A8B-5AE2-4919-98DD-F7D9379F6BBF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EC201A8B-5AE2-4919-98DD-F7D9379F6BBF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE5EC450-7F96-4C9C-B9B3-0005B9394154}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE5EC450-7F96-4C9C-B9B3-0005B9394154}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE5EC450-7F96-4C9C-B9B3-0005B9394154}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE5EC450-7F96-4C9C-B9B3-0005B9394154}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

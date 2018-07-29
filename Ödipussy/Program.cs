@@ -16,22 +16,22 @@ namespace Ödipussy
                 Regex = "$x%7=0 and not ($x=21)",
                 SubstituionWord = "Ödipussy"
             };
-            NumberSubstitutionRule newRule2 = new NumberSubstitutionRule
+            NumberCalculationRule newRule = new NumberCalculationRule
             {
-                Regex = "$x%4=0",
-                SubstitutionNumber = 2.5
+                Regex = "$x%2=0",
+                Function = "$x*2"
             };
-            NumberSubstitutionRule newRule = new NumberSubstitutionRule
+            NumberCalculationRule newRule2 = new NumberCalculationRule
             {
-                Regex = "contains($x,Ödipussy) ",
-                SubstitutionNumber = 8
+                Regex = "$x%3=0",
+                Function = "digitsum($x)"
             };
 
             rules.Add(ödipussy);
-            rules.Add(newRule2);
             rules.Add(newRule);
+            rules.Add(newRule2);
 
-            for (int i = 1; i < 22; i++)
+            for (int i = 1; i <= 21; i++)
             {
                 DataPair output = new DataPair
                 {
