@@ -16,20 +16,15 @@ namespace Ödipussy
                 Regex = "$x%7=0 and not ($x=21)",
                 SubstituionWord = "Ödipussy"
             };
-            NumberCalculationRule newRule = new NumberCalculationRule
+            DigitSubstitutionRule newRule = new DigitSubstitutionRule
             {
-                Regex = "$x%2=0",
-                Function = "$x*2"
-            };
-            NumberCalculationRule newRule2 = new NumberCalculationRule
-            {
-                Regex = "$x%3=0",
-                Function = "digitsum($x)"
+                Regex = "contains($x,3)",
+                Substitute = 6,
+                SubstitutionDigit = 3
             };
 
             rules.Add(ödipussy);
             rules.Add(newRule);
-            rules.Add(newRule2);
 
             for (int i = 1; i <= 21; i++)
             {

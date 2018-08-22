@@ -68,6 +68,34 @@ namespace Ödipussy
         }
     }
 
+    public class DigitSubstitutionRule : IRule
+    {
+        public int Substitute { get; set; }
+        public int SubstitutionDigit { get; set; }
+        public string Regex { get; set; }
+
+        public string Title => "Zahl Ersetzung";
+
+        public DataPair ApplyRule(DataPair input)
+        {
+            if (input.Type.IsNumericType())
+            {
+                if (RuleHelper.IsValid(Regex, Convert.ToDouble(input.Data)))
+                {
+                    var output = new DataPair
+                    {
+                        Data = input.Data.Replace(SubstitutionDigit.ToString(), Substitute.ToString()),
+                        Type = typeof(double),
+                        IsTransformed = true
+                    };
+                    output.TransformationLog = $"{input.TransformationLog}Digitsub (matched { Regex }). {input.Data} => { output.Data.ToString()}\n";
+                    return output;
+                }
+            }
+            return input;
+        }
+    }
+
     public class NumberCalculationRule : IRule
     {
         public string Function { get; set; }
