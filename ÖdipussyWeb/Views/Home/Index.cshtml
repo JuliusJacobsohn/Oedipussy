@@ -1,31 +1,65 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Ödipussy";
 }
-
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+@if (ViewBag.Answer != null)
+{
+    <h4>Output</h4>
+    <div class="alert alert-info">
+        @Html.Raw(ViewBag.Answer)
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
+}
+@using (Html.BeginForm("Index", "Home", FormMethod.Get))
+{
+    <div class="form-horizontal">
+        <h4>Zahl herausfinden</h4>
+        <div class="form-group">
+            <label class="col-md-2">Index</label>
+            <div class="col-md-10">
+                <input name="index" class="form-control" />
+            </div>
+        </div>
+        <input type="submit" value="Herausfinden" class="btn btn-default" />
     </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+}
+<hr />
+@using (Html.BeginForm("AddRule", "Home", FormMethod.Post))
+{
+    <div class="form-horizontal">
+        <h4>Neue Regel</h4>
+        <div class="form-group">
+            <label class="col-md-2">Regeltyp</label>
+            <div class="col-md-10">
+                <select name="rule" class="form-control">
+                    <option value="NumberSubsitutionRule">
+                        Zahl mit Zahl ersetzen
+                    </option>
+                    <option value="WordSubstitutionRule">
+                        Zahl mit Wort ersetzen
+                    </option>
+                    <option value="DigitSubstitutionRule">
+                        Ziffer ersetzen
+                    </option>
+                    <option value="NumberCalculationRule">
+                        Zahl verändern
+                    </option>
+                </select>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2">Regeltrigger</label>
+            <div class="col-md-10">
+                <input type="text" name="regex" class="form-control" />
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-2">Regelinput</label>
+            <div class="col-md-10">
+                <input type="text" name="ruleData" class="form-control" />
+            </div>
+        </div>
+        <input type="submit" value="Hinzufügen" class="btn btn-success" />
     </div>
-</div>
+}
+<hr />
+<h4>Spiel Zurücksetzen</h4>
+@Html.ActionLink("Spiel zurücksetzen", "ResetGame", "Home", null, new { @class = "btn btn-danger" })
