@@ -22,6 +22,34 @@
     </div>
 }
 <hr />
+@if (ViewBag.Rules != null)
+{
+    <div class="form-horizontal">
+        <h4>Vorhandene Regeln</h4>
+        <p>Es sind derzeit @ViewBag.Rules.Count Regeln vorhanden</p>
+        <a id="a-show-rules" class="btn btn-default">Regeln anzeigen</a>
+    </div>
+    <div id="div-rule" class="hidden">
+        <table class="table">
+            <tr>
+                <th>Regeltyp</th>
+                <th>Regeltrigger</th>
+            </tr>
+            @foreach (var rule in ViewBag.Rules)
+            {
+                <tr>
+                    <td>
+                        @rule.GetType().ToString()
+                    </td>
+                    <td>
+                        @rule.Regex
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <hr />
+}
 @using (Html.BeginForm("AddRule", "Home", FormMethod.Post))
 {
     <div class="form-horizontal">
@@ -63,3 +91,11 @@
 <hr />
 <h4>Spiel Zurücksetzen</h4>
 @Html.ActionLink("Spiel zurücksetzen", "ResetGame", "Home", null, new { @class = "btn btn-danger" })
+
+@section Scripts{
+    <script>
+        $('#a-show-rules').on("click", function () {
+            $('#div-rule').toggleClass("hidden");
+        });
+    </script>
+}
