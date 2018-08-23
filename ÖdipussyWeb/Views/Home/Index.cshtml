@@ -74,6 +74,35 @@
             </div>
         </div>
         <div class="form-group">
+            <div class="alert alert-info">
+                <ul>
+                    <li>Index ist $x</li>
+                    <li>Boolsche Terme mit =,&gt;,&lt;; and, or und not</li>
+                    <li>Mathematische Formeln inkl. Klammern erlaubt</li>
+                    <li>
+                        Funktionen
+                        <ul>
+                            <li>
+                                contains(string, string)
+                            </li>
+                            <li>
+                                digitsum(int)
+                            </li>
+                            <li>
+                                abs(int)
+                            </li>
+                            <li>
+                                isprime(int)
+                            </li>
+                            <li>
+                                iseven(int)
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+                Beispiel: "Jede Zahl der 3er Reihe +2 rechnen"<br />
+                Wähle "Zahl verändern", Trigger ist "$x%3=0", Input ist "$x+2"
+            </div>
             <label class="col-md-2">Regeltrigger</label>
             <div class="col-md-10">
                 <input type="text" name="regex" class="form-control" />

@@ -50,14 +50,19 @@ namespace Ödipussy
         public static bool EvaluateExpression(string function)
         {
             var arguments = FunctionHelper.GetArguments(function);
-            return EvaluateExpression(int.Parse(arguments.ElementAt(0)));
+            bool success = double.TryParse(arguments.ElementAt(0), out double result);
+            if (!success)
+            {
+                return false;
+            }
+            return EvaluateExpression(result);
         }
 
-        public static bool EvaluateExpression(int input)
+        public static bool EvaluateExpression(double input)
         {
             return IsPrime(input);
         }
-        public static bool IsPrime(int number)
+        public static bool IsPrime(double number)
         {
             if (number <= 1) return false;
             if (number == 2) return true;
