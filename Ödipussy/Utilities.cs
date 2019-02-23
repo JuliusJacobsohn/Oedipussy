@@ -41,9 +41,12 @@ namespace Ödipussy
     public class RuleHelper
     {
         public static readonly string[] FUNCTION_NAMES = { "contains", "digitsum", "abs", "isprime", "iseven" };
-        public static bool IsValid(string regex, double number)
+        public static bool IsValid(string regex, int index, double number)
         {
-            return EvaluateBoolean(EvaluateExpression(regex.Replace("$x", number.ToString())));
+            string evaluatedRegex = regex
+                .Replace("$x", number.ToString())
+                .Replace("$i", index.ToString());
+            return EvaluateBoolean(EvaluateExpression(evaluatedRegex));
         }
 
         public static string EvaluateExpression(string expression)
@@ -54,7 +57,7 @@ namespace Ödipussy
                 {
                     int startingIndex = expression.IndexOf(functionName);
                     int endingIndex = Utilities.GetClosingBracket(expression);
-                    string fullFunction = expression.Substring(startingIndex, (endingIndex - startingIndex)+1);
+                    string fullFunction = expression.Substring(startingIndex, (endingIndex - startingIndex) + 1);
                     switch (functionName)
                     {
                         case "contains":

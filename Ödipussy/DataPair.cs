@@ -9,6 +9,7 @@ namespace Ödipussy
     public class DataPair
     {
         public string Data { get; set; }
+        public int Index { get; set; }
         public Type Type { get; set; }
         public string TransformationLog { get; set; }
         public bool IsTransformed { get; set; }

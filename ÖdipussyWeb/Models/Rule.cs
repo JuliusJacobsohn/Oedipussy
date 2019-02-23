@@ -31,6 +31,7 @@ namespace Ödipussy
                     {
                         Data = SubstituionWord,
                         Type = typeof(string),
+                        Index = input.Index,
                         IsTransformed = true,
                         TransformationLog = $"{input.TransformationLog}Wordsub (matched { Regex }). {input.Data} => {SubstituionWord}\n"
                     };
@@ -50,7 +51,7 @@ namespace Ödipussy
 
         public DataPair ApplyRule(DataPair input)
         {
-            if (input.Type.IsNumericType())
+            if (input.Type.IsNumericType())asd index einbauen
             {
                 if (RuleHelper.IsValid(Regex, Convert.ToDouble(input.Data)))
                 {
@@ -58,6 +59,7 @@ namespace Ödipussy
                     {
                         Data = SubstitutionNumber.ToString(),
                         Type = typeof(double),
+                        Index = input.Index,
                         IsTransformed = true,
                         TransformationLog = $"{input.TransformationLog}Numbersub (matched { Regex }). {input.Data} => { SubstitutionNumber.ToString()}\n"
                     };
@@ -86,6 +88,7 @@ namespace Ödipussy
                     {
                         Data = input.Data.Replace(SubstitutionDigit.ToString(), Substitute.ToString()),
                         Type = typeof(double),
+                        Index = input.Index,
                         IsTransformed = true
                     };
                     output.TransformationLog = $"{input.TransformationLog}Digitsub (matched { Regex }). {input.Data} => { output.Data.ToString()}\n";
@@ -109,7 +112,9 @@ namespace Ödipussy
             {
                 if (RuleHelper.IsValid(Regex, Convert.ToDouble(input.Data)))
                 {
-                    string explicitFunction = Function.Replace("$x", input.Data);
+                    string explicitFunction = Function
+                        .Replace("$x", input.Data)
+                        .Replace("$i", input.Index.ToString());
                     string evaluatedFunction = RuleHelper.EvaluateExpression(explicitFunction);
                     double newValue = RuleHelper.EvaluateDouble(evaluatedFunction);
 
@@ -117,6 +122,7 @@ namespace Ödipussy
                     {
                         Data = newValue.ToString(),
                         Type = typeof(double),
+                        Index = input.Index,
                         IsTransformed = true,
                         TransformationLog = $"{input.TransformationLog}Numbercalculation (matched { Regex }). {input.Data} => { newValue.ToString()}\n"
                     };
